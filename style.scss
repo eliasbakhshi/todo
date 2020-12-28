@@ -1,0 +1,254 @@
+/* Variables */
+$tableListColor: #efefef;
+$tableTabColor: yellow;
+$todoColor: white;
+$boxShadow: 0 1px 5px 0 rgba(0,0,0,0.4);
+
+/* Styles */
+body{
+  margin: 0;
+  padding: 0;
+  //background: url("bg.jpg") center center;
+  background-color: #cceefc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 80vw;
+    max-width: 1000px;
+    overflow: hidden;
+    .header{
+      height: 10%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      input{
+        width: 100%;
+        height: 90%;
+        max-height: 50px;
+        border-radius: 10px;
+        font-size: 1.5em;
+        text-indent: 12px;
+        box-shadow: $boxShadow;
+        &::-webkit-search-cancel-button{
+          position: relative;
+          right: 10px;
+        }
+      }
+    }
+  }
+  .table{
+    height: 80%;
+    width: 100%;
+    background-color: $tableListColor;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: $boxShadow;
+    transition: height 100ms linear;
+    &.high{
+      height: 88% !important;
+    }
+    .tabs{
+      display: flex;
+      width: 100%;
+      height: 70px;
+      align-items: center;
+      justify-content: space-around;
+      input[type="radio"] {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+        &:checked + label{
+          background-color: $tableListColor;
+          box-shadow: none;
+        }
+      }
+      label{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $tableTabColor;
+        height: 100%;
+        width: 100%;
+        font-size: 2.5em;
+        box-shadow: 0 0 5px 0 yellow;
+        &:hover{
+          font-size: 2.8em;
+          transition: font-size 100ms linear;
+        }
+        &:active {
+          box-shadow: none;
+        }
+      }
+    }
+    .list{
+      padding: 1% 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: calc(100% - 70px);
+      width: 100%;
+      article{
+        height: 60px;
+        width: 94% ;
+        padding: 1% 2%;
+        margin: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $todoColor;
+        border-radius: 10px;
+        box-shadow: $boxShadow;
+        &.d-none{
+          display: none !important;
+        }
+        input[type=checkbox]{
+          display: none;
+          & + label{
+            font-size: 1.7em;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            &:active{
+              div{
+                transform: scale(0);
+              }
+            }
+            div{
+              display: block;
+              width: 1.3em;
+              height: 1.3em;
+              border: 2px solid rgba(0,0,0,0.4);
+              border-radius: 0.2em;
+              overflow: hidden;
+              margin-right: 10px;
+              transition: 200ms;
+              &:before{
+                content: "\2714";
+                font-size: 25px;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                padding: 0 0.2em 0.1em 0.3em;
+                margin-right: 0.3em;
+                color: transparent;
+                transition: .2s;
+              }
+            }
+          }
+          &:checked{
+            & + label{
+              text-decoration-line: line-through;
+              div{
+                border-color: MediumSeaGreen;
+                &:before{
+                  background-color: MediumSeaGreen;
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+        i{
+          transition-duration:200ms;
+          padding: 10px 10px;
+          &:hover{
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+  .enter{
+    height: 10%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 1;
+    -webkit-transition: opacity 100ms linear 100ms,
+                        height 100ms linear;
+    -moz-transition: opacity 100ms linear 100ms,
+                        height 100ms linear;
+    -ms-transition: opacity 100ms linear 100ms,
+                      height 100ms linear;
+    -o-transition: opacity 100ms linear 100ms,
+                        height 100ms linear;
+    transition: opacity 100ms ease-out 100ms,
+                        height 100ms ease-in;
+
+    &.hide{
+      height: 0;
+      transition: height 200ms ease-out;
+      overflow: hidden;
+      opacity: 0;
+    }
+    input[type=text]{
+      font-size: 1.5em;
+      text-indent: 12px;
+      height: 90%;
+      max-height: 50px;
+      width: 75%;
+      border-radius: 8px;
+      box-shadow: $boxShadow;
+      &:focus{
+        border-radius: 10px;
+      }
+    }
+    button{
+      margin-right: 10px;
+      padding: 15px;
+      height: 50px;
+      width: 20%;
+      border-radius: 4px;
+      border: none;
+      //-webkit-appearance: none;
+      box-shadow: $boxShadow;
+      transition: box-shadow 200ms ease-out;
+      &:hover{
+        //opacity: 0.8;
+        box-shadow: 0 1px 3px 1px rgba(0,0,0.4);
+        //transform: translateY(-10px);
+        animation: hoverUp 100ms both ease-out;
+      }
+      &:active{
+        //opacity: 0.8;
+        box-shadow: 0 0 2px 1px rgba(0,0,0.4);
+        transition: box-shadow 20ms ease-out;
+        animation: clickDown 100ms both ease-out;
+
+      }
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+}
+
+@keyframes hoverScale {
+  0% {transform: scale(1);}
+  100% {transform: scale(1.1);}
+}
+
+@keyframes hoverUp {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(-2px);}
+}
+@keyframes clickDown {
+  0% {transform: translateY(-2px);}
+  100% {transform: translateY(0);}
+}
+
+
