@@ -6,22 +6,98 @@ let todos = Array.from(list.children);
 const todoBtn = document.getElementById("todoBtn");
 const doneBtn = document.getElementById("doneBtn");
 const tabs = document.tabs.tabBtn;
-let printedList = [];
+let printedList = [], idCount = 1;
 
 /* Show the relevant list*/
 function showList(listName) {
-    let outputList = [], idCount = 1;
+    let outputList = [];
     todos.filter(todo => !todo.classList.contains(listName))
-        .forEach(todo => {
-            todo.classList.add("d-none");
-            todo.getElementsByTagName("INPUT").id = "idCount";
-            idCount++;
-        });
+        .forEach(todo => todo.classList.add("d-none"));
     todos.filter(todo => todo.classList.contains(listName))
         .forEach(todo => {
+            /* Create checkbox for the to-do object*/
+            if (todo.classList.contains("todo")) {
+                if (todo.firstElementChild.tagName.toLowerCase() !== "input") {
+                    if (todo.firstElementChild.tagName.toLowerCase() === "i") {
+                        todo.firstElementChild.remove();
+                    }
+                    let checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.classList.add("deleteBox");
+
+                    let label = document.createElement("label");
+                    todo.prepend(label);
+                    todo.prepend(checkbox);
+                }
+
+
+
+
+                let theCheckbox = todo.getElementsByTagName("INPUT")[0];
+                let theLabel = todo.getElementsByTagName("LABEL")[0];
+                console.log(todo.getElementsByTagName("INPUT"))
+                // console.log(todo)
+                /* Add listener for the checkbox */
+                theCheckbox.addEventListener("change", function() {
+                    console.log(todo.getElementsByTagName("INPUT"))
+                    if (this.checked) {
+                        todo.classList.add("done");
+                        todo.classList.add("d-hide");
+                        setTimeout(() => todo.classList.add("d-none"), 950);
+                        todo.classList.remove("todo");
+                    } else {
+                        todo.classList.remove("done");
+                    }
+                });
+
+                console.log(idCount)
+
+
+                /* Match the checkbox with the label */
+                theCheckbox.id = `c${idCount}`;
+                theCheckbox.name = `c${idCount}`;
+                theLabel.htmlFor = `c${idCount}`;
+                idCount++;
+            } else if (todo.classList.contains("done")) {
+                if (todo.firstElementChild.tagName.toLowerCase() !== "i") {
+                    /* Delete the checkbox*/
+                    if (todo.firstElementChild.tagName.toLowerCase() === "input") {
+                        todo.firstElementChild.remove();
+                        if (todo.firstElementChild.tagName.toLowerCase() === "label") {
+                            todo.firstElementChild.remove();
+                        }
+                    }
+                    let iElement = document.createElement("i");
+                    iElement.classList.add("fas", "fa-undo-alt", "fa-lg", "undo");
+                    iElement.addEventListener("click", function(e) {
+                        todo.classList.add("todo");
+                        todo.classList.add("reset");
+                        setTimeout(() => todo.classList.add("d-none"), 450);
+                        todo.classList.remove("done");
+                    });
+                    todo.prepend(iElement);
+                }
+            }
+            todo.classList.remove("d-hide");
+            todo.classList.remove("reset");
             todo.classList.remove("d-none");
             outputList.push(todo);
         });
+    // let deleteBoxes = document.querySelectorAll(".deleteBox");
+    // console.log(deleteBoxes)
+    // deleteBoxes.forEach(todo => {
+    //     console.log("ww")
+    //     todo.addEventListener("change", function() {
+    //         if (this.checked) {
+    //             todo.classList.add("done");
+    //             todo.classList.add("d-hide");
+    //             setTimeout(() => todo.classList.add("d-none"), 950);
+    //             todo.classList.remove("todo");
+    //         } else {
+    //             todo.classList.remove("done");
+    //         }
+    //     });
+    // });
     return outputList;
 }
 
@@ -50,7 +126,6 @@ function showForm(show = true) {
 
 
 /* Show the To-do list by default*/
-showList("todo");
 printedList = showList("todo");
 todoBtn.setAttribute("checked", "checked");
 
@@ -77,21 +152,23 @@ form.addEventListener("submit", sub => {
     let enteredData = form.data.value.trim();
     if (enteredData.length) {
         list.innerHTML += `<article class="todo">
-                                <input type="checkbox" name="c1" id="c4">
-                                <label for="c4"><div></div>${enteredData}</label>
-                                <i class="fas fa-trash-alt fa-2x"></i>
+                                <p>${enteredData}</p>
+                                <i class="fas fa-trash-alt fa-2x trash"></i>
                            </article>`;
     }
     form.reset();
     list = document.querySelector(".list");
     todos = Array.from(list.children);
+    printedList = showList("todo");
+    search();
 });
 
 
 /* Delete from the list */
 list.addEventListener("click", e => {
     if (e.target.classList.contains("fa-trash-alt")) {
-        e.target.parentElement.remove();
+        e.target.parentElement.classList.add("reset");
+        setTimeout(() => e.target.parentElement.remove(), 450);
     }
 });
 
