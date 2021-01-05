@@ -1,114 +1,175 @@
 /* Variables */
-$tableListColor: #efefef;
+$tableColor: #efefef;
 $tableTabColor: yellow;
 $todoColor: white;
 $boxShadow: 0 1px 5px 0 rgba(0,0,0,0.4);
+$boxShadowLite: 0 0 3px 0 rgba(0,0,0,0.4);
+$boxShadowInset: inset 0 0 3px 0 rgba(0,0,0,0.4);
+$tabletWidth: 960px;
+$mobileWidth: 500px;
+
+@mixin transition($property) {
+  -webkit-transition: $property;
+  -moz-transition: $property;
+  -ms-transition: $property;
+  -o-transition: $property;
+  transition: $property;
+}
+
+/* For animations */
+@keyframes hideForm {
+  0%{
+    transform: translateY(0);
+  }
+  100%{
+    transform: translateY(150%);
+  }
+}
+@keyframes showForm {
+  0%{
+    transform: translateY(150%);
+  }
+  100%{
+    transform: translateY(0);
+  }
+}
+
+@keyframes hoverUp {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(-2px);}
+}
+@keyframes clickDown {
+  0% {transform: translateY(-2px);}
+  100% {transform: translateY(0);}
+}
 
 /* Styles */
 body{
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #cceefc;
+  background: linear-gradient(0deg, rgba(0,91,255,1) 0%, rgba(0,185,255,1) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
   .page{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
-    width: 80vw;
+    height: 90vh;
+    width: 40vw;
     max-width: 1000px;
+    background-color: $tableColor;
+    border-radius: 10px;
+    box-shadow: $boxShadow;
     overflow: hidden;
     .header{
-      height: 10%;
-      width: 100%;
+      height: 15%;
+      width: 95%;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       input{
-        width: 100%;
-        height: 90%;
+        width: 30%;
+        height: 40px;
         max-height: 50px;
         border-radius: 10px;
-        font-size: 1.5em;
+        font-size: 1em;
         text-indent: 12px;
-        box-shadow: $boxShadow;
+        box-shadow: $boxShadowLite;
+        border: 0;
+        &:focus{
+          box-shadow: $boxShadowInset;
+          outline: none;
+        }
         &::-webkit-search-cancel-button{
           position: relative;
           right: 10px;
         }
       }
+      h1{
+        margin-left: 15px;
+        max-width: 60%;
+      }
     }
   }
   .table{
-    height: 80%;
-    width: 100%;
-    background-color: $tableListColor;
-    border-radius: 10px;
+    height: 75%;
+    width: 97%;
     overflow: hidden;
-    box-shadow: $boxShadow;
-    transition: height 100ms linear;
+    @include transition(height 300ms linear);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     &.high{
-      height: 88% !important;
+      height: 84% !important;
     }
     .tabs{
-      margin: 0;
+      position: relative;
       display: flex;
-      width: 100%;
-      height: 70px;
+      width: 50%;
+      height: 40px;
       align-items: center;
-      justify-content: space-around;
+      justify-content: center;
+      border-radius: 37px;
+      background-color: white;
+      border: 8px white solid;
+      margin: 1em 2em 2em 2em;
+      box-shadow: $boxShadow;
+      &:before{
+        position: absolute;
+        content: "";
+        height: 40px;
+        width: 50%;
+        background-color: $tableColor;
+        box-shadow: 0 0 5px 0 $tableColor;
+        border-radius: 37px;
+        left: 0;
+        @include transition(left cubic-bezier(.31,.55,.25,.98) .5s);
+      }
+      &.done:before{
+        left: 50% !important;
+      }
       input[type="radio"] {
         opacity: 0;
         position: fixed;
         width: 0;
-        &:checked + label{
-          background-color: $tableListColor;
-          box-shadow: none;
-        }
       }
       label{
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: $tableTabColor;
-        height: 70px;
+        height: 40px;
         width: 100%;
-        font-size: 2.5em;
-        box-shadow: 0 0 5px 0 yellow;
+        border-radius:37px;
+        font-size: 1.3em;
+        font-weight: bold;
+        z-index: 1;
         &:hover{
-          font-size: 2.8em;
-          transition: font-size 100ms linear;
-        }
-        &:active {
-          box-shadow: none;
+          font-size: 1.5em;
+          @include transition(font-size 100ms linear);
         }
       }
+    }
+    span.no-result{
+      display: block;
+      height: 2em;
+      font-size: 1em;
+      width: 100%;
+      text-align: center;
+      text-align-all: center;
+      vertical-align: center;
     }
     .list{
       overflow-y: auto;
       overflow-x: hidden;
       height: calc(100% - 70px);
       width: 100%;
-      padding: 0;
-      /* Scrollbar */
-      scrollbar-width: thin;
+      scrollbar-width: none;
       &::-webkit-scrollbar{
-        width: 8px;
-      }
-      &::-webkit-scrollbar-track{
-        box-shadow: inset 0 0 5px grey;
-        border-radius: 10px;
-      }
-      &::-webkit-scrollbar-thumb{
-        background: #969696;
-        border-radius: 10px;
-      }
-      &::-webkit-scrollbar-thumb:hover{
-        background: #5d5c5c;
-      }
-      &::-webkit-scrollbar-button {
         display: none;
       }
       article{
@@ -122,34 +183,30 @@ body{
         border-radius: 10px;
         box-shadow: $boxShadow;
         overflow: hidden;
-        &:first-of-type{
-          margin-top: 2%;
-
-        }
         &.d-none{
           display: none !important;
         }
         &.d-hide{
           opacity: 0;
           height: 0;
-          transition: opacity 300ms 0.5s,
-                      height 200ms 800ms;
+          @include transition((opacity 300ms 0.5s,
+                  height 200ms 800ms));
         }
         &.reset{
           opacity: 0;
           height: 0;
-          transition: opacity 300ms,
-                      height 200ms 300ms;
+          @include transition((opacity 300ms,
+          height 200ms 300ms));
         }
         input[type=checkbox]{
           display: none;
           & + label{
-            font-size: 1.5em;
+            font-size: 1em;
             display: block;
             cursor: pointer;
-            height: 1.6em;
-            width: 1.6em;
-            padding: 0.5em 0.5em;
+            height: 1.2em;
+            width: 1.2em;
+            padding: 1em;
             overflow: hidden;
             &:active:before{
               transform: scale(0);
@@ -157,11 +214,14 @@ body{
             &:before{
               content: "\2714";
               display: block;
+              height: 1em;
+              width: 1em;
               border: 2px solid rgba(0,0,0,0.4);
-              padding: 0 0.2em 0.1em 0.3em;
+              padding: 0 0 0.2em 0.2em;
               border-radius: 0.2em;
+              transform: translateY(-0.1em);
               color: transparent;
-              transition: .2s;
+              @include transition(200ms);
             }
           }
           &:checked{
@@ -178,19 +238,16 @@ body{
           }
         }
         p{
-          font-size: 22px;
+          font-size: 18px;
         }
         i{
-          transition-duration:200ms;
-          padding: 0.5em 0.5em;
+          @include transition(200ms);
+          padding: 0.8em;
           &.trash{
             margin-left: auto;
-            &:hover{
-              transform: scale(1.1);
-            }
           }
-          &.undo{;
-            margin: 0 0.2em;
+          &:hover{
+            transform: scale(1.1);
           }
         }
       }
@@ -198,85 +255,115 @@ body{
   }
   .enter{
     height: 10%;
-    width: 100%;
+    width: 95%;
     margin: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     opacity: 1;
-    -webkit-transition: opacity 100ms linear 100ms,
-                        height 100ms linear;
-    -moz-transition: opacity 100ms linear 100ms,
-                        height 100ms linear;
-    -ms-transition: opacity 100ms linear 100ms,
-                      height 100ms linear;
-    -o-transition: opacity 100ms linear 100ms,
-                        height 100ms linear;
-    transition: opacity 100ms ease-out 100ms,
-                        height 100ms ease-in;
-
+    &.show{
+      animation: showForm 300ms forwards;
+      -webkit-animation: showForm 300ms forwards;
+      flex: 1;
+    }
     &.hide{
-      height: 0;
-      transition: height 200ms ease-out;
-      overflow: hidden;
-      opacity: 0;
+      animation: hideForm 300ms forwards;
+      -webkit-animation: hideForm 300ms forwards;
+      flex: 0;
     }
     input[type=text]{
       font-size: 1.5em;
       text-indent: 12px;
-      height: 90%;
+      height: 40px;
       max-height: 50px;
       width: 75%;
       border-radius: 8px;
-      box-shadow: $boxShadow;
+      border: 0;
+      box-shadow: $boxShadowLite;
       &:focus{
-        border-radius: 10px;
+        box-shadow: $boxShadowInset;
+        outline: none;
       }
     }
     button{
-      margin-right: 10px;
       padding: 15px;
-      height: 50px;
+      height: 40px;
       width: 20%;
       border-radius: 4px;
       border: none;
-      //-webkit-appearance: none;
       box-shadow: $boxShadow;
-      transition: box-shadow 200ms ease-out;
+      @include transition(box-shadow 200ms ease-out);
       &:hover{
-        //opacity: 0.8;
         box-shadow: 0 1px 3px 1px rgba(0,0,0.4);
-        //transform: translateY(-10px);
         animation: hoverUp 100ms both ease-out;
+        -webkit-animation: hoverUp 100ms both ease-out;
       }
       &:active{
-        //opacity: 0.8;
         box-shadow: 0 0 2px 1px rgba(0,0,0.4);
-        transition: box-shadow 20ms ease-out;
+        @include transition(box-shadow 20ms ease-out);
         animation: clickDown 100ms both ease-out;
+        -webkit-animation: clickDown 100ms both ease-out;
 
       }
       &:focus{
+        box-shadow: $boxShadowInset;
         outline: none;
       }
     }
   }
 }
 
-@keyframes hoverScale {
-  0% {transform: scale(1);}
-  100% {transform: scale(1.1);}
+
+/* Style the tablet view */
+@media screen and (max-width: $tabletWidth){
+  body{
+    .page{
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      .table{
+        .tabs{
+          label{
+            height: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
 }
 
-@keyframes hoverUp {
-  0% {transform: translateY(0);}
-  100% {transform: translateY(-2px);}
+
+/* Style the mobile view */
+@media screen and (max-width: $mobileWidth){
+  body{
+    .page{
+      .table{
+        .tabs{
+          label{
+            height: 20px;
+            font-size: 1em;
+            font-weight: bold;
+          }
+        }
+        .list{
+          .todo{
+            p{
+              font-size: 1em;
+            }
+          }
+        }
+      }
+    }
+    .enter{
+      input[type=text]{
+      width: 55%;
+      }
+      button{
+      width: 40%;
+      }
+      }
+  }
 }
-@keyframes clickDown {
-  0% {transform: translateY(-2px);}
-  100% {transform: translateY(0);}
-}
-
-
-

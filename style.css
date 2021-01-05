@@ -1,253 +1,20 @@
 @charset "UTF-8";
 /* Variables */
-/* Styles */
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #cceefc;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-body .page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  width: 80vw;
-  max-width: 1000px;
-  overflow: hidden;
-}
-body .page .header {
-  height: 10%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-body .page .header input {
-  width: 100%;
-  height: 90%;
-  max-height: 50px;
-  border-radius: 10px;
-  font-size: 1.5em;
-  text-indent: 12px;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
-}
-body .page .header input::-webkit-search-cancel-button {
-  position: relative;
-  right: 10px;
-}
-body .table {
-  height: 80%;
-  width: 100%;
-  background-color: #efefef;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
-  transition: height 100ms linear;
-}
-body .table.high {
-  height: 88% !important;
-}
-body .table .tabs {
-  margin: 0;
-  display: flex;
-  width: 100%;
-  height: 70px;
-  align-items: center;
-  justify-content: space-around;
-}
-body .table .tabs input[type=radio] {
-  opacity: 0;
-  position: fixed;
-  width: 0;
-}
-body .table .tabs input[type=radio]:checked + label {
-  background-color: #efefef;
-  box-shadow: none;
-}
-body .table .tabs label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: yellow;
-  height: 70px;
-  width: 100%;
-  font-size: 2.5em;
-  box-shadow: 0 0 5px 0 yellow;
-}
-body .table .tabs label:hover {
-  font-size: 2.8em;
-  transition: font-size 100ms linear;
-}
-body .table .tabs label:active {
-  box-shadow: none;
-}
-body .table .list {
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: calc(100% - 70px);
-  width: 100%;
-  padding: 0;
-  /* Scrollbar */
-  scrollbar-width: thin;
-}
-body .table .list::-webkit-scrollbar {
-  width: 8px;
-}
-body .table .list::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
-}
-body .table .list::-webkit-scrollbar-thumb {
-  background: #969696;
-  border-radius: 10px;
-}
-body .table .list::-webkit-scrollbar-thumb:hover {
-  background: #5d5c5c;
-}
-body .table .list::-webkit-scrollbar-button {
-  display: none;
-}
-body .table .list article {
-  height: 60px;
-  width: 98%;
-  margin: 1%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-}
-body .table .list article:first-of-type {
-  margin-top: 2%;
-}
-body .table .list article.d-none {
-  display: none !important;
-}
-body .table .list article.d-hide {
-  opacity: 0;
-  height: 0;
-  transition: opacity 300ms 0.5s, height 200ms 800ms;
-}
-body .table .list article.reset {
-  opacity: 0;
-  height: 0;
-  transition: opacity 300ms, height 200ms 300ms;
-}
-body .table .list article input[type=checkbox] {
-  display: none;
-}
-body .table .list article input[type=checkbox] + label {
-  font-size: 1.5em;
-  display: block;
-  cursor: pointer;
-  height: 1.6em;
-  width: 1.6em;
-  padding: 0.5em 0.5em;
-  overflow: hidden;
-}
-body .table .list article input[type=checkbox] + label:active:before {
-  transform: scale(0);
-}
-body .table .list article input[type=checkbox] + label:before {
-  content: "✔";
-  display: block;
-  border: 2px solid rgba(0, 0, 0, 0.4);
-  padding: 0 0.2em 0.1em 0.3em;
-  border-radius: 0.2em;
-  color: transparent;
-  transition: 0.2s;
-}
-body .table .list article input[type=checkbox]:checked + label:before {
-  border-color: MediumSeaGreen;
-  background-color: MediumSeaGreen;
-  color: #fff;
-}
-body .table .list article input[type=checkbox]:checked + label + p {
-  text-decoration-line: line-through;
-}
-body .table .list article p {
-  font-size: 22px;
-}
-body .table .list article i {
-  transition-duration: 200ms;
-  padding: 0.5em 0.5em;
-}
-body .table .list article i.trash {
-  margin-left: auto;
-}
-body .table .list article i.trash:hover {
-  transform: scale(1.1);
-}
-body .table .list article i.undo {
-  margin: 0 0.2em;
-}
-body .enter {
-  height: 10%;
-  width: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  opacity: 1;
-  -webkit-transition: opacity 100ms linear 100ms, height 100ms linear;
-  -moz-transition: opacity 100ms linear 100ms, height 100ms linear;
-  -ms-transition: opacity 100ms linear 100ms, height 100ms linear;
-  -o-transition: opacity 100ms linear 100ms, height 100ms linear;
-  transition: opacity 100ms ease-out 100ms, height 100ms ease-in;
-}
-body .enter.hide {
-  height: 0;
-  transition: height 200ms ease-out;
-  overflow: hidden;
-  opacity: 0;
-}
-body .enter input[type=text] {
-  font-size: 1.5em;
-  text-indent: 12px;
-  height: 90%;
-  max-height: 50px;
-  width: 75%;
-  border-radius: 8px;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
-}
-body .enter input[type=text]:focus {
-  border-radius: 10px;
-}
-body .enter button {
-  margin-right: 10px;
-  padding: 15px;
-  height: 50px;
-  width: 20%;
-  border-radius: 4px;
-  border: none;
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
-  transition: box-shadow 200ms ease-out;
-}
-body .enter button:hover {
-  box-shadow: 0 1px 3px 1px black;
-  animation: hoverUp 100ms both ease-out;
-}
-body .enter button:active {
-  box-shadow: 0 0 2px 1px black;
-  transition: box-shadow 20ms ease-out;
-  animation: clickDown 100ms both ease-out;
-}
-body .enter button:focus {
-  outline: none;
-}
-
-@keyframes hoverScale {
+/* For animations */
+@keyframes hideForm {
   0% {
-    transform: scale(1);
+    transform: translateY(0);
   }
   100% {
-    transform: scale(1.1);
+    transform: translateY(150%);
+  }
+}
+@keyframes showForm {
+  0% {
+    transform: translateY(150%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 @keyframes hoverUp {
@@ -264,6 +31,336 @@ body .enter button:focus {
   }
   100% {
     transform: translateY(0);
+  }
+}
+/* Styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(0deg, #005bff 0%, #00b9ff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+body .page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+  width: 40vw;
+  max-width: 1000px;
+  background-color: #efefef;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+body .page .header {
+  height: 15%;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body .page .header input {
+  width: 30%;
+  height: 40px;
+  max-height: 50px;
+  border-radius: 10px;
+  font-size: 1em;
+  text-indent: 12px;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+  border: 0;
+}
+body .page .header input:focus {
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+body .page .header input::-webkit-search-cancel-button {
+  position: relative;
+  right: 10px;
+}
+body .page .header h1 {
+  margin-left: 15px;
+  max-width: 60%;
+}
+body .table {
+  height: 75%;
+  width: 97%;
+  overflow: hidden;
+  -webkit-transition: height 300ms linear;
+  -moz-transition: height 300ms linear;
+  -ms-transition: height 300ms linear;
+  -o-transition: height 300ms linear;
+  transition: height 300ms linear;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .table.high {
+  height: 84% !important;
+}
+body .table .tabs {
+  position: relative;
+  display: flex;
+  width: 50%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 37px;
+  background-color: white;
+  border: 8px white solid;
+  margin: 1em 2em 2em 2em;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
+}
+body .table .tabs:before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 50%;
+  background-color: #efefef;
+  box-shadow: 0 0 5px 0 #efefef;
+  border-radius: 37px;
+  left: 0;
+  -webkit-transition: left cubic-bezier(0.31, 0.55, 0.25, 0.98) 0.5s;
+  -moz-transition: left cubic-bezier(0.31, 0.55, 0.25, 0.98) 0.5s;
+  -ms-transition: left cubic-bezier(0.31, 0.55, 0.25, 0.98) 0.5s;
+  -o-transition: left cubic-bezier(0.31, 0.55, 0.25, 0.98) 0.5s;
+  transition: left cubic-bezier(0.31, 0.55, 0.25, 0.98) 0.5s;
+}
+body .table .tabs.done:before {
+  left: 50% !important;
+}
+body .table .tabs input[type=radio] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+body .table .tabs label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  border-radius: 37px;
+  font-size: 1.3em;
+  font-weight: bold;
+  z-index: 1;
+}
+body .table .tabs label:hover {
+  font-size: 1.5em;
+  -webkit-transition: font-size 100ms linear;
+  -moz-transition: font-size 100ms linear;
+  -ms-transition: font-size 100ms linear;
+  -o-transition: font-size 100ms linear;
+  transition: font-size 100ms linear;
+}
+body .table span.no-result {
+  display: block;
+  height: 2em;
+  font-size: 1em;
+  width: 100%;
+  text-align: center;
+  text-align-all: center;
+  vertical-align: center;
+}
+body .table .list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100% - 70px);
+  width: 100%;
+  scrollbar-width: none;
+}
+body .table .list::-webkit-scrollbar {
+  display: none;
+}
+body .table .list article {
+  height: 60px;
+  width: 98%;
+  margin: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+body .table .list article.d-none {
+  display: none !important;
+}
+body .table .list article.d-hide {
+  opacity: 0;
+  height: 0;
+  -webkit-transition: opacity 300ms 0.5s, height 200ms 800ms;
+  -moz-transition: opacity 300ms 0.5s, height 200ms 800ms;
+  -ms-transition: opacity 300ms 0.5s, height 200ms 800ms;
+  -o-transition: opacity 300ms 0.5s, height 200ms 800ms;
+  transition: opacity 300ms 0.5s, height 200ms 800ms;
+}
+body .table .list article.reset {
+  opacity: 0;
+  height: 0;
+  -webkit-transition: opacity 300ms, height 200ms 300ms;
+  -moz-transition: opacity 300ms, height 200ms 300ms;
+  -ms-transition: opacity 300ms, height 200ms 300ms;
+  -o-transition: opacity 300ms, height 200ms 300ms;
+  transition: opacity 300ms, height 200ms 300ms;
+}
+body .table .list article input[type=checkbox] {
+  display: none;
+}
+body .table .list article input[type=checkbox] + label {
+  font-size: 1em;
+  display: block;
+  cursor: pointer;
+  height: 1.2em;
+  width: 1.2em;
+  padding: 1em;
+  overflow: hidden;
+}
+body .table .list article input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+body .table .list article input[type=checkbox] + label:before {
+  content: "✔";
+  display: block;
+  height: 1em;
+  width: 1em;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  padding: 0 0 0.2em 0.2em;
+  border-radius: 0.2em;
+  transform: translateY(-0.1em);
+  color: transparent;
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
+  -ms-transition: 200ms;
+  -o-transition: 200ms;
+  transition: 200ms;
+}
+body .table .list article input[type=checkbox]:checked + label:before {
+  border-color: MediumSeaGreen;
+  background-color: MediumSeaGreen;
+  color: #fff;
+}
+body .table .list article input[type=checkbox]:checked + label + p {
+  text-decoration-line: line-through;
+}
+body .table .list article p {
+  font-size: 18px;
+}
+body .table .list article i {
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
+  -ms-transition: 200ms;
+  -o-transition: 200ms;
+  transition: 200ms;
+  padding: 0.8em;
+}
+body .table .list article i.trash {
+  margin-left: auto;
+}
+body .table .list article i:hover {
+  transform: scale(1.1);
+}
+body .enter {
+  height: 10%;
+  width: 95%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 1;
+}
+body .enter.show {
+  animation: showForm 300ms forwards;
+  -webkit-animation: showForm 300ms forwards;
+  flex: 1;
+}
+body .enter.hide {
+  animation: hideForm 300ms forwards;
+  -webkit-animation: hideForm 300ms forwards;
+  flex: 0;
+}
+body .enter input[type=text] {
+  font-size: 1.5em;
+  text-indent: 12px;
+  height: 40px;
+  max-height: 50px;
+  width: 75%;
+  border-radius: 8px;
+  border: 0;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+}
+body .enter input[type=text]:focus {
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+body .enter button {
+  padding: 15px;
+  height: 40px;
+  width: 20%;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.4);
+  -webkit-transition: box-shadow 200ms ease-out;
+  -moz-transition: box-shadow 200ms ease-out;
+  -ms-transition: box-shadow 200ms ease-out;
+  -o-transition: box-shadow 200ms ease-out;
+  transition: box-shadow 200ms ease-out;
+}
+body .enter button:hover {
+  box-shadow: 0 1px 3px 1px black;
+  animation: hoverUp 100ms both ease-out;
+  -webkit-animation: hoverUp 100ms both ease-out;
+}
+body .enter button:active {
+  box-shadow: 0 0 2px 1px black;
+  -webkit-transition: box-shadow 20ms ease-out;
+  -moz-transition: box-shadow 20ms ease-out;
+  -ms-transition: box-shadow 20ms ease-out;
+  -o-transition: box-shadow 20ms ease-out;
+  transition: box-shadow 20ms ease-out;
+  animation: clickDown 100ms both ease-out;
+  -webkit-animation: clickDown 100ms both ease-out;
+}
+body .enter button:focus {
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+
+/* Style the tablet view */
+@media screen and (max-width: 960px) {
+  body .page {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+  body .page .table .tabs label {
+    height: 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+}
+/* Style the mobile view */
+@media screen and (max-width: 500px) {
+  body .page .table .tabs label {
+    height: 20px;
+    font-size: 1em;
+    font-weight: bold;
+  }
+  body .page .table .list .todo p {
+    font-size: 1em;
+  }
+  body .enter input[type=text] {
+    width: 55%;
+  }
+  body .enter button {
+    width: 40%;
   }
 }
 
