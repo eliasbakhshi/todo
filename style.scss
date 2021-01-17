@@ -5,8 +5,8 @@ $todoColor: white;
 $boxShadow: 0 1px 5px 0 rgba(0,0,0,0.4);
 $boxShadowLite: 0 0 3px 0 rgba(0,0,0,0.4);
 $boxShadowInset: inset 0 0 3px 0 rgba(0,0,0,0.4);
-$tabletWidth: 960px;
-$mobileWidth: 500px;
+$tabletWidth: 1023px;
+$mobileWidth: 767px;
 
 @mixin transition($property) {
   -webkit-transition: $property;

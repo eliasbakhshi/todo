@@ -334,7 +334,7 @@ body .enter button:focus {
 }
 
 /* Style the tablet view */
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1023px) {
   body .page {
     width: 100vw;
     height: 100vh;
@@ -347,7 +347,7 @@ body .enter button:focus {
   }
 }
 /* Style the mobile view */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 767px) {
   body .page .table .tabs label {
     height: 20px;
     font-size: 1em;
